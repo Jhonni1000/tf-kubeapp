@@ -31,9 +31,9 @@ resource "aws_iam_role" "eks_nodegroup_role" {
             {
                 Effect = "Allow"
                 Action = "sts:AssumeRole"
-                Principal = [{
+                Principal = {
                     Service = "ec2.amazonaws.com"
-                }]
+                }
             }
         ]
     })
