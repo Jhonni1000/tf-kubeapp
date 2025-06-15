@@ -70,7 +70,8 @@ resource "aws_eks_cluster" "eks_dev_cluster" {
   }
 
   depends_on = [
-    aws_iam_role_policy_attachment.eks_cluster_role_policy
+    aws_iam_role_policy_attachment.eks_cluster_role_policy,
+    module.vpc
   ]
 }
 
