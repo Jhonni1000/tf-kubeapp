@@ -1,0 +1,63 @@
+name: Kubernetes Continuous Deployment
+
+on:
+   push:
+    branches: 
+     - main
+    paths:
+     - "src/kube/**"
+   pull_request:
+    branches:
+    - main
+   workflow_dispatch:
+
+permissions:
+    id-token: write
+    contents: read
+
+env:
+  AWS_REGION: ${{ vars.AWS_REGION }}
+  AWS_ROLE_ARN: ${{ vars.AWS_ROLE_ARN }}
+  TF_WORKING_DIR: ./src/kube
+
+jobs:
+    Kubernetes:
+        name: Kubernetes Deployment
+        runs-on: ubuntu:latest
+        defaults:
+            run:
+                working-directory: ${{ env.TF_WORKING_DIR }}
+        steps:
+            - name: Configure AWS Credentials with Secrets Region
+              uses: aws-actions/configure-aws-credentials@v4
+              with: 
+                role-to-assume: ${{ env.AWS_ROLE_ARN }}
+                aws-region: ${{ env.AWS_REGION }} 
+            - name: Checkout Code
+              uses: actions/checkout@v4
+            - name: Identity Confirmation
+              run: aws sts get-caller-identity
+            - name: Install kubectl and Setup Kubectl
+              run: |
+                curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+                curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+                echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+                sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+                kubectl version --client
+            - name: Re-configure AWS Credentials
+              uses: aws-actions/configure-aws-credentials@v4
+              with: 
+                role-to-assume: ${{ vars.AWS_ROLE_ARN }} 
+                aws-region: ${{ vars.AWS_REGION }}
+            - name: Update kubeconfig
+              run: |
+                aws eks update-kubeconfig --name eksdemo3 --region ${{ vars.AWS_REGION }}
+                cat ~/.kube/config
+            - name: Configure kubectl with role-based auth
+              run: |
+                kubectl get configmap aws-auth -n kube-system -o yaml
+                kubectl get nodes
+            - name: Apply Kubernetes Manifest file
+              run: |
+                kubectl apply -f .
+            
