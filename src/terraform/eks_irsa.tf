@@ -25,6 +25,6 @@ resource "aws_iam_role" "eks_irsa_iam_role" {
 }
 
 resource "aws_iam_role_policy_attachment" "eks_irsa_iam_role_policy" {
-    role = aws_iam_role.eks_irsa_iam_role.arn
+    role = aws_iam_role.eks_irsa_iam_role.name
     policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
 }
