@@ -5,9 +5,13 @@ metadata:
 spec:
   template:
     spec:
+      serviceAccountName: irsa-demo-sa 
       containers:
         - name: aws
-          image:  ubuntu:latest
-          command: ["aws", "s3", "ls"]
+          image: amazon/aws-cli:latest
+          args: ["s3", "ls"]
+          env:
+            - name: AWS_REGION
+              value: "eu-north-1"
       restartPolicy: Never
       
