@@ -23,7 +23,7 @@ env:
 jobs:
     Kubernetes:
         name: Kubernetes Deployment
-        runs-on: ubuntu:latest
+        runs-on: ubuntu-latest
         defaults:
             run:
                 working-directory: ${{ env.TF_WORKING_DIR }}
