@@ -51,7 +51,7 @@ jobs:
                 aws-region: ${{ vars.AWS_REGION }}
             - name: Update kubeconfig
               run: |
-                aws eks update-kubeconfig --name eksdemo3 --region ${{ vars.AWS_REGION }}
+                aws eks update-kubeconfig --name eks_dev_cluster --region ${{ vars.AWS_REGION }}
                 cat ~/.kube/config
             - name: Configure kubectl with role-based auth
               run: |
