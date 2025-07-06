@@ -16,7 +16,7 @@ resource "aws_iam_role" "eks_irsa_iam_role" {
             }
             Condition = {
                 StringEquals = {
-                    "${replace(aws_iam_openid_connect_provider.eks_oidc.url, "https://", "")}:sub" = "system:serviceaccount:default:irsa-demo-sa"
+                    "${replace(aws_iam_openid_connect_provider.eks_oidc.url, "https://", "")}:sub" = "system:serviceaccount:test:irsa-demo-sa"
 
                 }
             }
