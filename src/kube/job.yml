@@ -1,16 +1,16 @@
-#apiVersion: batch/v1
-#kind: Job
-#metadata:
-# name: demo-job
-#spec:
-# template:
-#   spec:
-#     serviceAccountName: irsa-demo-sa   # match your ServiceAccount name exactly
-#     containers:
-#       - name: aws
-#         image: amazon/aws-cli:latest
-#         args: ["s3", "ls"]
-#         env:
-#           - name: AWS_REGION
-#             value: "eu-north-1"
-#     restartPolicy: Never
+apiVersion: batch/v1
+kind: Job
+metadata:
+ name: demo-job
+spec:
+ template:
+   spec:
+     serviceAccountName: irsa-demo-sa   # match your ServiceAccount name exactly
+     containers:
+       - name: aws
+         image: amazon/aws-cli:latest
+         args: ["s3", "ls"]
+         env:
+           - name: AWS_REGION
+             value: "eu-north-1"
+     restartPolicy: Never
