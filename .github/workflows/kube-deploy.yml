@@ -61,11 +61,11 @@ jobs:
                 kubectl get configmap aws-auth -n kube-system -o yaml
                 kubectl get nodes
             - name: Lint Helm Chart
-              run: helm lint /platform-bootstrap
+              run: helm lint platform-bootstrap
             - name: Deploy Helm Chart
               run : |
-                helm upgrade --install /platform-bootstrap .helm/platform-bootstrap \
+                helm upgrade --install platform-bootstrap platform-bootstrap \
                 --namespace platform-bootstrap \
                 --create-namespace \
-                --values helm/platform-bootstrap/values.yaml
+                --values platform-bootstrap/values.yaml
             
