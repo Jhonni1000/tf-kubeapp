@@ -1,7 +1,7 @@
-resource "aws_iam_role" "eks_ebs_irsa" {
+resource "aws_iam_role" "ebs-csi-iam-role" {
     name = "ebs-csi-iam-role"
     assume_role_policy = jsonencode({
-        Version = "2012-01-17"
+        Version = "2012-10-17"
         Statement = [{
             Effect = "Allow"
             Action = "sts:AssumeRoleWithWebIdentity"
