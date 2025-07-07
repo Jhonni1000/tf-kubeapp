@@ -1,0 +1,9 @@
+namespace: platform-bootstrap
+
+s3ServiceAccount:
+  name: irsa-demo-sa
+  roleArn: arn:aws:iam::738605694254:role/eks_irsa_iam_role
+
+ebsServiceAccount:
+  name: ebs-csi-controller-sa
+  roleArn: arn:aws:iam::738605694254:role/ebs-csi-iam-role

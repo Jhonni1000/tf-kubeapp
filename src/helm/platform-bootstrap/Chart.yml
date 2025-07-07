@@ -1,0 +1,4 @@
+apiVersion: v2
+name: platform-bootstrap
+description: Bootstrap Chart for K8s resources
+version: 0.1.0
