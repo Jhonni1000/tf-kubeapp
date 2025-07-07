@@ -64,8 +64,5 @@ jobs:
               run: helm lint platform-bootstrap
             - name: Deploy Helm Chart
               run : |
-                helm upgrade --install platform-bootstrap platform-bootstrap \
-                --namespace platform-bootstrap \
-                --create-namespace \
-                --values platform-bootstrap/values.yaml
+                helm upgrade --install platform-bootstrap platform-bootstrap --namespace platform-bootstrap --values platform-bootstrap/values.yaml
             
