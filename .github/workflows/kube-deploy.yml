@@ -59,7 +59,7 @@ jobs:
             - name: Apply MySQL Secret directly
               run: |
                 export MYSQL_ROOT_PASSWORD="${{ secrets.MYSQL_ROOT_PASSWORD }}"
-                envsubst < mysql-secret.yml | kubectl apply -f -
+                envsubst < 07-mysql-secret.yml | kubectl apply -f -
             - name: Deploy app components to platform-bootstrap
               run: |
                 kubectl apply -f .
