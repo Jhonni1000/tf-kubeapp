@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-auth
+  namespace: kube-system
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    meta.helm.sh/release-name: platform-bootstrap
+    meta.helm.sh/release-namespace: kube-system
+data:
+  mapRoles: |
+    {{ .Values.mapRoles | indent 4 }}
+  mapUsers: |
+    {{ .Values.mapUsers | indent 4 }}

@@ -60,6 +60,10 @@ jobs:
               run: |
                 kubectl get configmap aws-auth -n kube-system -o yaml
                 kubectl get nodes
+            - name: Pre-label aws-auth for Helm ownership
+              run: |
+                kubectl label configmap aws-auth -n kube-system app.kubernetes.io/managed-by=Helm --overwrite                
+                kubectl annotate configmap aws-auth -n kube-system meta.helm.sh/release-name=platform-bootstrap meta.helm.sh/release-namespace=kube-system --overwrite
             - name: Lint Helm Chart
               run: helm lint platform-bootstrap
             - name: Deploy Helm Chart
