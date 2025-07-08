@@ -56,6 +56,9 @@ jobs:
               run: |
                 kubectl get configmap aws-auth -n kube-system -o yaml
                 kubectl get nodes
+            - name: Create K8s Namespace for resources
+              run: |
+                kubectl apply -f 02-namespace.yml
             - name: Apply MySQL Secret directly
               run: |
                 export MYSQL_ROOT_PASSWORD="${{ secrets.MYSQL_ROOT_PASSWORD }}"
