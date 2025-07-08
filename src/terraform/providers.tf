@@ -16,7 +16,7 @@ provider "aws" {
 }
 
 data "aws_eks_cluster_auth" "my_cluster" {
-  name = aws_eks_cluster.my_cluster.name
+  name = aws_eks_cluster.eks_dev_cluster.name
 }
 
 provider "kubernetes" {
