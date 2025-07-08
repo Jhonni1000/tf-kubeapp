@@ -10,6 +10,6 @@ metadata:
     meta.helm.sh/release-namespace: kube-system
 data:
   mapRoles: |
-    {{ .Values.aws-auth.mapRoles | indent 4 }}
+    {{ .Values.awsAuth.mapRoles | indent 4 }}
   mapUsers: |
-    {{ .Values.aws-auth.mapUsers | indent 4 }}
+    {{ .Values.awsAuth.mapUsers | indent 4 }}
