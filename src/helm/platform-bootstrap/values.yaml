@@ -8,15 +8,16 @@ ebsServiceAccount:
   name: ebs-csi-controller-sa
   roleArn: arn:aws:iam::738605694254:role/ebs-csi-iam-role
 
-mapRoles: |
-  - rolearn: arn:aws:iam::123456789012:role/eks-node-role
-    username: system:node:{{EC2PrivateDNSName}}
-    groups:
-      - system:bootstrappers
-      - system:nodes
+aws-auth:
+  mapRoles: |
+    - rolearn: arn:aws:iam::738605694254:role/eks-node-role
+      username: system:node:{{EC2PrivateDNSName}}
+      groups:
+        - system:bootstrappers
+        - system:nodes
 
-mapUsers: |
-  - userarn: arn:aws:iam::123456789012:user/test-user
-    username: test-user
-    groups:
-      - system:masters
+  mapUsers: |
+    - userarn: arn:aws:iam::738605694254:user/test-user
+      username: test-user
+      groups:
+        - system:masters
