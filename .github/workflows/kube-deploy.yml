@@ -70,7 +70,7 @@ jobs:
               run: |
                 helm upgrade --install system-components ./helm/system-components \
                   --namespace kube-system \
-                  --values helm/system-components/values.yaml
+                  --values helm/platform-bootstrap/values.yaml
             - name: Deploy app components to platform-bootstrap
               run: |
                 helm upgrade --install platform-bootstrap ./helm/platform-bootstrap \
