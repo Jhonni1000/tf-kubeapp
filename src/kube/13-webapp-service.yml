@@ -4,6 +4,7 @@ metadata:
   name: usermgt-webapp-clb-service
   labels:
     app: usermgt-webapp
+  namespace: test
 spec:
   type: NodePort
   selector:

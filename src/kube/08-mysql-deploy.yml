@@ -4,11 +4,12 @@ metadata:
   name: mysql
   labels:
     app: mysql
+  namespace: test
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sql
+      app: mysql
   strategy:
     type: Recreate
   template:

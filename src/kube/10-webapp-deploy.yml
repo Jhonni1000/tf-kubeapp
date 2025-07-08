@@ -4,6 +4,7 @@ metadata:
   name: usermgt-webapp
   labels:
     app: usermgt-webapp
+  namespace: test
 spec:
   replicas: 1
   selector:
