@@ -18,7 +18,7 @@ spec:
       initContainers:
         - name: init-db
           image: busybox:1.31
-          command: ['sh', '-c', 'echo -e "Checking for the availability of MySQL Server deployment"; while ! nc -z mysql 3306; do sleep 1; printf "-"; done; echo -e " >> MySQL DB Server has started";']
+          command: ['sh', '-c', 'echo -e "Checking for the availability of MySQL Server deployment"; while ! nc -z mysql-service 3306; do sleep 1; printf "-"; done; echo -e " >> MySQL DB Server has started";']
       containers:
         - image:  stackssimplify/kube-usermgt-webapp:1.0.0-MySQLDB
           name:  usermgt-webapp
