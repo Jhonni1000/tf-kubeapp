@@ -66,7 +66,14 @@ jobs:
                 kubectl annotate configmap aws-auth -n kube-system meta.helm.sh/release-name=platform-bootstrap meta.helm.sh/release-namespace=kube-system --overwrite
             - name: Lint Helm Chart
               run: helm lint platform-bootstrap
-            - name: Deploy Helm Chart
-              run : |
-                helm upgrade --install platform-bootstrap platform-bootstrap --namespace platform-bootstrap --values platform-bootstrap/values.yaml
-            
+            - name: Deploy system components to kube-system
+              run: |
+                helm upgrade --install system-components ./helm/system-components \
+                  --namespace kube-system \
+                  --values helm/system-components/values.yaml
+            - name: Deploy app components to platform-bootstrap
+              run: |
+                helm upgrade --install platform-bootstrap ./helm/platform-bootstrap \
+                  --namespace platform-bootstrap \
+                  --values helm/platform-bootstrap/values.yaml
+                        
