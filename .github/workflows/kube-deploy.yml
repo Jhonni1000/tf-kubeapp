@@ -5,7 +5,7 @@ on:
     branches: 
      - main
     paths:
-     - "src/helm/**"
+     - "src/kube/**"
    pull_request:
     branches:
     - main
@@ -18,7 +18,7 @@ permissions:
 env:
   AWS_REGION: ${{ vars.AWS_REGION }}
   AWS_ROLE_ARN: ${{ vars.AWS_ROLE_ARN }}
-  TF_WORKING_DIR: ./src/helm
+  TF_WORKING_DIR: ./src/kube
 
 jobs:
     Kubernetes:
@@ -44,10 +44,6 @@ jobs:
                 echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
                 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
                 kubectl version --client
-            - name: Set up Helm
-              uses: azure/setup-helm@v3
-              with: 
-                version: 'latest'
             - name: Re-configure AWS Credentials
               uses: aws-actions/configure-aws-credentials@v4
               with: 
@@ -60,20 +56,7 @@ jobs:
               run: |
                 kubectl get configmap aws-auth -n kube-system -o yaml
                 kubectl get nodes
-            - name: Pre-label aws-auth for Helm ownership
-              run: |
-                kubectl label configmap aws-auth -n kube-system app.kubernetes.io/managed-by=Helm --overwrite                
-                kubectl annotate configmap aws-auth -n kube-system meta.helm.sh/release-name=platform-bootstrap meta.helm.sh/release-namespace=kube-system --overwrite
-            - name: Lint Helm Chart
-              run: helm lint platform-bootstrap
-            - name: Deploy system components to kube-system
-              run: |
-                helm upgrade --install system-components ./helm/system-components \
-                  --namespace kube-system \
-                  --values helm/platform-bootstrap/values.yaml
             - name: Deploy app components to platform-bootstrap
               run: |
-                helm upgrade --install platform-bootstrap ./helm/platform-bootstrap \
-                  --namespace platform-bootstrap \
-                  --values helm/platform-bootstrap/values.yaml
+                kubectl apply -f .
                         
