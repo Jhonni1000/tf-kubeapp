@@ -8,7 +8,7 @@ ebsServiceAccount:
   name: ebs-csi-controller-sa
   roleArn: arn:aws:iam::738605694254:role/ebs-csi-iam-role
 
-aws-auth:
+awsAuth:
   mapRoles: |
     - rolearn: arn:aws:iam::738605694254:role/eks-node-role
       username: system:node:{{EC2PrivateDNSName}}
