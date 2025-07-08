@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: usermgt-webapp
+  labels:
+    app: usermgt-webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: usermgt-webapp
+  template:
+    metadata:
+      labels: 
+        app: usermgt-webapp
+    spec: 
+      initContainers:
+        - name: init-db
+          image: busybox:1.31
+          command: ['sh', '-c', 'echo -e "Checking for the availability of MySQL Server deployment"; while ! nc -z mysql 3306; do sleep 1; printf "-"; done; echo -e " >> MySQL DB Server has started";']
+      containers:
+        - image:  stackssimplify/kube-usermgt-webapp:1.0.0-MySQLDB
+          name:  usermgt-webapp
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 8080
+          resources:
+            requests:
+              memory: "500Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+          env:
+            - name:  DB_HOSTNAME
+              value:  "mysql-service"
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_NAME
+              value: "webappdb"
+            - name: DB_USERNAME
+              value: "root"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_ROOT_PASSWORD
