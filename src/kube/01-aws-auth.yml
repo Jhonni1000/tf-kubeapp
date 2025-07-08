@@ -12,7 +12,7 @@ data:
         - system:nodes
 
   mapUsers: |
-    - userarn: arn:aws:iam::738605694254:user/test-user
-      username: test-user
+    - userarn: arn:aws:iam::738605694254:user/eks_user
+      username: eks_user
       groups:
         - system:masters
