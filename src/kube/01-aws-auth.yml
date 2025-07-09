@@ -16,3 +16,7 @@ data:
       username: eks_user
       groups:
         - system:masters
+    - userarn: arn:aws:iam::738605694254:user/test-user
+      username: test-user
+      groups:
+        - system:masters
