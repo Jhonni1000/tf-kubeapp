@@ -92,9 +92,9 @@ resource "aws_eks_node_group" "eks_dev_ng" {
   }
 
   scaling_config {
-    desired_size = 5
+    desired_size = 3
     min_size     = 2
-    max_size     = 7
+    max_size     = 5
   }
 
   update_config {
