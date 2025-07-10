@@ -1,9 +1,3 @@
-resource "aws_iam_policy" "eks_lbc_irsa_policy" {
-    name = "eks_lbc_irsa_policy"
-    path = "/"
-    policy = file("${path.module}/aws_lb_controller_iam_policy.json")
-}
-
 resource "aws_iam_role" "ebs-lbc-iam-role" {
     name = "eks-lbc-irsa-role"
     assume_role_policy = jsonencode({
@@ -25,5 +19,5 @@ resource "aws_iam_role" "ebs-lbc-iam-role" {
 
 resource "aws_iam_role_policy_attachment" "eks_lbc_irsa_policy" {
     role = aws_iam_role.ebs-lbc-iam-role.name
-    policy_arn = aws_iam_policy.eks_lbc_irsa_policy.arn
+    policy_arn = "arn:aws:iam::aws:policy/AWSLoadBalancerControllerIAMPolicy"
 }
