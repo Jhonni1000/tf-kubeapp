@@ -56,7 +56,7 @@ resource "aws_eks_cluster" "eks_dev_cluster" {
   version  = "1.31"
 
   vpc_config {
-    subnet_ids              = module.vpc.public_subnets
+    subnet_ids              = module.vpc.private_subnets
     endpoint_private_access = false
     endpoint_public_access  = true
     public_access_cidrs     = ["0.0.0.0/0"]
@@ -92,9 +92,9 @@ resource "aws_eks_node_group" "eks_dev_ng" {
   }
 
   scaling_config {
-    desired_size = 5
-    min_size     = 2
-    max_size     = 7
+    desired_size = 2
+    min_size     = 1
+    max_size     = 3
   }
 
   update_config {
