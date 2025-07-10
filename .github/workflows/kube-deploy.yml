@@ -59,10 +59,10 @@ jobs:
             - name: Create K8s Namespace for resources
               run: |
                 kubectl apply -f 02-namespace.yml
-            - name: Apply MySQL Secret directly
-              run: |
-                export MYSQL_ROOT_PASSWORD="${{ secrets.MYSQL_ROOT_PASSWORD }}"
-                envsubst < 07-mysql-secret.yml | kubectl apply -f -
+            #- name: Apply MySQL Secret directly
+              #run: |
+                #export MYSQL_ROOT_PASSWORD="${{ secrets.MYSQL_ROOT_PASSWORD }}"
+                #envsubst < 07-mysql-secret.yml | kubectl apply -f -
             - name: Deploy app components to platform-bootstrap
               run: |
                 kubectl apply -f .
