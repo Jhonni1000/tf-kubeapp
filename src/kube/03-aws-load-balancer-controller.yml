@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::738605694254:role/ebs-lbc-iam-role
+  name:  aws-load-balancer-controller
+  namespace: kube-system

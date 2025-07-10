@@ -1,11 +1,11 @@
 resource "aws_iam_policy" "eks_lbc_irsa_policy" {
-    name = "eks_ebs_irsa_policy"
+    name = "eks_lbc_irsa_policy"
     path = "/"
     policy = file("${path.module}/aws_lb_controller_iam_policy.json")
 }
 
 resource "aws_iam_role" "ebs-lbc-iam-role" {
-    name = "eks-ebs-irsa-role"
+    name = "eks-lbc-irsa-role"
     assume_role_policy = jsonencode({
         Version = "2012-10-17"
         Statement = [{
@@ -16,7 +16,7 @@ resource "aws_iam_role" "ebs-lbc-iam-role" {
             }
             Condition = {
                 StringEquals = {
-                    "${replace(aws_iam_openid_connect_provider.eks_oidc.url, "https://", "")}:sub" = "system:serviceaccount:kube-system:ebs-lb-controller-sa"
+                    "${replace(aws_iam_openid_connect_provider.eks_oidc.url, "https://", "")}:sub" = "system:serviceaccount:kube-system:aws-load-balancer-controller"
                 }
             }
         }]
