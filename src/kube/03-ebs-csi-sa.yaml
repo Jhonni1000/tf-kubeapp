@@ -1,7 +1,8 @@
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::738605694254:role/ebs-csi-iam-role
-  name:  ebs-csi-controller-sa
-  namespace: kube-system
+# apiVersion: v1
+# kind: ServiceAccount
+# metadata:
+#   annotations:
+#     eks.amazonaws.com/role-arn: arn:aws:iam::738605694254:role/ebs-csi-iam-role
+#   name:  ebs-csi-controller-sa
+#   namespace: kube-system
+
