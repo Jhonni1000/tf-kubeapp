@@ -14,15 +14,16 @@ spec:
       name: nginx-app
       labels:
         app: nginx-app
-    containers:
-      - image: nginx:latest
-        name: nginx
-        ports:
-        - containerPort: 80
-    resources:
-      requests:
-        memory: "500Mi"
-        cpu: "250m"
-      limits:
-        memory: "1Gi"
-        cpu: "500m"
+    spec:
+      containers:
+        - image: nginx:latest
+          name: nginx
+          ports:
+          - containerPort: 80
+          resources:
+            requests:
+              memory: "500Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
