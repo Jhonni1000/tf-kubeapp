@@ -82,10 +82,10 @@ jobs:
                 --set controller.serviceAccount.name=ebs-csi-controller-sa
             - name: Install AWS LB CSI Driver using existing IRSA
               run: |
-                helm upgrade aws-load-balancer-controller eks/aws-load-balancer-controller \
+                helm upgrade --install aws-load-balancer-controller eks/aws-load-balancer-controller \
                 -n kube-system \
                 --set clusterName=eks_dev_cluster \
                 --set serviceAccount.create=false \
                 --set serviceAccount.name=aws-load-balancer-controller \
                 --set region=${{ vars.AWS_REGION }} \
-                --set vpcId=vpc-05ddb4364fd61162f
+                --set vpcId=vpc-0c4dde5e31cd9002f
