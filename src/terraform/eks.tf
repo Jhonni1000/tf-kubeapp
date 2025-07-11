@@ -104,13 +104,12 @@ resource "aws_eks_node_group" "eks_public_dev_ng" {
   }
 
   tags = {
-    tags = {
     Environment = "dev"
     Managed_by  = "OPAKI"
     Name = "Public-Node-Group"
     "k8s.io/cluster-autoscaler/${aws_eks_cluster.eks_dev_cluster.name}" = "owned"
     "k8s.io/cluster-autoscaler/enabled" = "true"
-  }
+
   }
 
   depends_on = [
