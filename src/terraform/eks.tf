@@ -44,6 +44,7 @@ resource "aws_iam_role_policy_attachment" "eks_nodegroup_role_policy" {
     "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy",
     "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly",
     "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy",
+    "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore",
     "arn:aws:iam::aws:policy/AutoScalingFullAccess"
   ])
   role       = aws_iam_role.eks_nodegroup_role.name
